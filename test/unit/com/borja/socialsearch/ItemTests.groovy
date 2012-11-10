@@ -11,6 +11,12 @@ import org.junit.*
 @TestFor(Item)
 class ItemTests {
 
+    void test() {
+        def item0 = new Item(title: "titulo")
+        assertFalse item0.validate()
+
+    }
+
     void testConstraints() {
         def item1 = new Item()
         assertFalse item1.validate()
@@ -21,20 +27,7 @@ class ItemTests {
         item1.link = "http://item.link1"
         assertFalse item1.validate()
 
-        item1.id = "1"
-        assertTrue item1.validate()
-    }
-
-    void testUnique() {
-
-        def item2 = new Item(id: "3", link: "http://item.link2")
-
-        def item3 = new Item(id: "3", link: "http://item.link3")
-        mockForConstraintsTests(Item, [item3])
-
-        assertFalse item2.validate()
-        item2.id = "2"
-        assertTrue item2.validate()
 
     }
+
 }
