@@ -22,7 +22,7 @@ class Item {
 
 
     static constraints = {
-        sid unique: true, nullable: false, blank: false
+        sid nullable: false, blank: false
         title nullable: true
         imageUrl nullable: true
         previewUrl nullable: true
@@ -37,7 +37,4 @@ class Item {
     }
 
 
-    def beforeInsert(){
-        sid = siteKey + sid
-    }
 }

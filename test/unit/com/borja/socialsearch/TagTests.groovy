@@ -20,7 +20,6 @@ class TagTests {
         assertFalse tag.validate()
         assert "nullable" == tag.errors["key"]
 
-
         assertTrue bilbao.validate()
 
         mockForConstraintsTests(Tag, [bilbao, bilbao2])

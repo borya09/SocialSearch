@@ -1,3 +1,4 @@
+import com.borja.socialsearch.Item
 
 class BootStrap {
 
