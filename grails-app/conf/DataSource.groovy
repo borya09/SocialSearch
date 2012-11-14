@@ -12,16 +12,4 @@ environments {
         }
 
     }
-    test{
-
-    }
-    production{
-        grails {
-            mongo {
-                host = "localhost"
-                port = 27017
-                databaseName = "test"
-            }
-        }
-    }
 }
