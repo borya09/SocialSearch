@@ -11,21 +11,30 @@ import org.junit.*
 @TestFor(Item)
 class ItemTests {
 
-    void test() {
-        def item0 = new Item(title: "titulo")
-        assertFalse item0.validate()
-
-    }
 
     void testConstraints() {
-        def item1 = new Item()
-        assertFalse item1.validate()
+        mockForConstraintsTests(Item)
+        def sid = "TWio34HJHJDS"
+        def item = new Item()
+        assertFalse item.validate()
+        assert "nullable" == item.errors["sid"]
+        assert "nullable" == item.errors["siteKey"]
 
-        item1.preview = "http://item.preview1"
-        assertFalse item1.validate()
 
-        item1.link = "http://item.link1"
-        assertFalse item1.validate()
+        item.sid = sid
+        item.siteKey = "TWEW"
+        assertFalse item.validate()
+        assert "size" == item.errors["siteKey"]
+
+        item.siteKey = "TW"
+        assertTrue item.validate()
+
+        def item2 = new Item(sid: sid, siteKey: "TWEW")
+
+        mockForConstraintsTests(Item,[item,item2])
+        assertFalse item2.validate()
+        assert "unique" == item2.errors["sid"]
+
 
 
     }

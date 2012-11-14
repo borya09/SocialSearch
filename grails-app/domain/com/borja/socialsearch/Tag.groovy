@@ -1,14 +1,23 @@
 package com.borja.socialsearch
 
+import org.bson.types.ObjectId
+
 class Tag {
 
-    String tag
+    ObjectId id
 
-    Date dateCreated, dateUpdated
+    String key //real tag
+
+    Date dateCreated
 
     List<Item> items
 
     static constraints = {
-        tag nullable: false, blank: false
+        key nullable: false, blank: false, unique: true
     }
+
+    static mapping = {
+        version false
+    }
+
 }

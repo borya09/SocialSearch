@@ -1,10 +1,13 @@
 package com.borja.socialsearch
 
+import org.bson.types.ObjectId
+
 
 class Item {
 
+    ObjectId id
 
-    String sid     //Identification of the Item in the original site
+    String sid     //Identification of the Item in the original site with the siteKey as prefix
 
     String title,
             imageUrl, //Url of the image, in case it's a photo
