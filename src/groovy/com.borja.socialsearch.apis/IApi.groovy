@@ -1,13 +1,15 @@
+package com.borja.socialsearch.apis
+
 import com.borja.socialsearch.Item
+
 /**
  * Created with IntelliJ IDEA.
  * User: borja
- * Date: 11/15/12
- * Time: 12:01 AM
+ * Date: 11/16/12
+ * Time: 1:24 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface ISocialApi {
-
+public interface IApi {
 
     List<Item> searchItems(tag, siteKey, max, connTimeout, readTimeout)
 
