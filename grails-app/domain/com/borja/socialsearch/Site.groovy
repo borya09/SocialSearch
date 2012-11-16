@@ -2,22 +2,19 @@ package com.borja.socialsearch
 
 import org.bson.types.ObjectId
 
-class Tag {
+class Site {
 
     ObjectId id
 
-    String key //real tag
+    String key     //Key of the site (TW:Twitter, IN:Instangram)
 
-    Date dateCreated
-
-    List<Site> sites
+    List<Item> items
 
     static constraints = {
-        key nullable: false, blank: false, unique: true
+        key nullable: false, blank: false, size: 3..3, unique: true
     }
 
     static mapping = {
         version false
     }
-
 }

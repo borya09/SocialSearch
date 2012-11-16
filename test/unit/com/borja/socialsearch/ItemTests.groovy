@@ -19,17 +19,9 @@ class ItemTests {
         def item = new Item()
         assertFalse item.validate()
         assert "nullable" == item.errors["sid"]
-        assert "nullable" == item.errors["siteKey"]
-
 
         item.sid = "TWio34HJHJDS"
-        item.siteKey = "TWEW"
-        assertFalse item.validate()
-        assert "size" == item.errors["siteKey"]
-
-        item.siteKey = "TW"
         assertTrue item.validate()
-
 
     }
 
