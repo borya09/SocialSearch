@@ -13,8 +13,8 @@ class Item {
             imageUrl, //Url of the image, in case it's a photo
             previewUrl, //Url of the preview, in case it's a photo
             description,
-            siteUrl,  //Url of the site
-            siteKey     //Key of the site (TW:Twitter, IN:Instangram)
+            siteUrl  //Url of the site
+
 
     Date dateCreated
 
@@ -28,7 +28,7 @@ class Item {
         previewUrl nullable: true
         description nullable: true
         siteUrl nullable: true
-        siteKey nullable: false, blank: false, size: 2..2
+
     }
 
     static mapping = {
