@@ -1,6 +1,6 @@
 package com.borja.socialsearch.apis
 
-import com.borja.socialsearch.Item
+import com.borja.socialsearch.domain.Item
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +13,7 @@ public class Instagram implements IApi{
 
 
     @Override
-    List<Item> searchItems(Object tag, Object siteKey, Object max, Object connTimeout, Object readTimeout) {
+    List<Item> searchItems(tag, siteKey, max, connTimeout, readTimeout) {
         return null  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

@@ -1,9 +1,10 @@
-package com.borja.socialsearch
+package com.borja.socialsearch.domain
 
 
 
 import grails.test.mixin.*
-import org.junit.*
+
+import com.borja.socialsearch.domain.Item
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions

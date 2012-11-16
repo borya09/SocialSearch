@@ -1,4 +1,4 @@
-import com.borja.socialsearch.Item
+import com.borja.socialsearch.domain.Item
 
 class BootStrap {
 

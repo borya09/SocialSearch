@@ -1,6 +1,6 @@
 package com.borja.socialsearch.apis
 
-import com.borja.socialsearch.Item
+import com.borja.socialsearch.domain.Item
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,6 +1,7 @@
-package com.borja.socialsearch
+package com.borja.socialsearch.domain
 
 import grails.test.mixin.TestFor
+import com.borja.socialsearch.domain.Tag
 
 
 @TestFor(Tag)

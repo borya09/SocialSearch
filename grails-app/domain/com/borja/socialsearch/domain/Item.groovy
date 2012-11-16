@@ -1,4 +1,4 @@
-package com.borja.socialsearch
+package com.borja.socialsearch.domain
 
 import org.bson.types.ObjectId
 
