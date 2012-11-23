@@ -1,15 +1,19 @@
 package com.borja.socialsearch.services
 
-import com.borja.socialsearch.apis.IApi
+import com.borja.socialsearch.apis.Api
 import com.borja.socialsearch.apis.ApiFactory
 
 class HarvestService {
 
-    def gather(tag) {
+    def grailsApplication
 
-        IApi collector = ApiFactory.getInstance(tag)
+    def gather(tag, siteKey, max) {
 
-        def items = collector.searchItems()
+        def collector = ApiFactory.getInstance(siteKey)
+        def config = [:]
+        def items = collector.searchItems(tag, max, config)
+
+        return items
 
     }
 }

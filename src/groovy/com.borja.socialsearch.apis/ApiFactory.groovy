@@ -10,13 +10,23 @@ package com.borja.socialsearch.apis
 class ApiFactory {
 
 
-    static IApi getInstance(siteKey){
+    static Api getInstance(siteKey) {
 
         def instance = null
 
-        if (siteKey.toString().equalsIgnoreCase("INS")){
-            instance =  new Instagram()
+
+        switch (siteKey){
+            case 'INS':
+                instance = new Instagram()
+                break
+            case "FLK":
+                instance = new Instagram()
+                break
         }
+
+        instance.setSiteKey(siteKey)
+
+
 
         return instance
 

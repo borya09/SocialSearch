@@ -1,6 +1,7 @@
 package com.borja.socialsearch.apis
 
 import com.borja.socialsearch.domain.Item
+import wslite.rest.RESTClient
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,11 +10,31 @@ import com.borja.socialsearch.domain.Item
  * Time: 12:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Instagram implements IApi{
+public class Instagram extends Api{
 
 
     @Override
-    List<Item> searchItems(tag, siteKey, max, connTimeout, readTimeout) {
-        return null  //To change body of implemented methods use File | Settings | File Templates.
+    List<Item> searchItems(tag, max, config) {
+
+        def client = new RESTClient(config.url)
+        def response = client.get(
+                query:[
+                        client_id:config.clientId
+
+                ],
+                connectTimeout: config.connectTimeout,
+                readTimeout: config.readTimeout,
+        )
+
+        def results = response.json.data?.collect{ photo->
+            [
+                    preview: photo.images.low_resolution.url,
+                    link: photo.images.standard_resolution.url,
+                    title: photo.caption.text
+            ]
+        }
+
+
+        return results
     }
 }
