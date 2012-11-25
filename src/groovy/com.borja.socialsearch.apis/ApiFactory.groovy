@@ -12,10 +12,12 @@ class ApiFactory {
 
     static def getInstance(siteKey) {
 
-        def props = ApiFactory.config.sites[siteKey]
-        println props
-        def timeouts = ApiFactory.config.timeouts.apis
-        println timeouts
+        def apisConfig = ApiFactory.config.apis
+
+        def props = apisConfig.sites[siteKey]
+        def timeouts = apisConfig.timeouts
+        def max = apisConfig.connection.max
+
         def className = props.clazz
         def clazz = ApiFactory.class.classLoader.loadClass(className)
         Api instance = (Api)clazz.newInstance(
@@ -24,7 +26,8 @@ class ApiFactory {
                 apiKey:props.connection.apiKey,
                 connTimeout:timeouts.connection,
                 readTimeout:timeouts.read,
-                properties:props.ownProps
+                properties:props.ownProps,
+                max:max
 
         )
 

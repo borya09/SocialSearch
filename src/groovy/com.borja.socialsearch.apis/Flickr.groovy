@@ -13,7 +13,7 @@ public class Flickr extends Api{
 
 
     @Override
-    def searchItems(tag, max) {
+    def searchItems(tag) {
 
         def response = launchSearch(
                 query:[

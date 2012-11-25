@@ -20,14 +20,14 @@ abstract class Api {
         apiKey
 
     int connTimeout,
-        readTimeout
+        readTimeout,
+        max
 
-    abstract def searchItems(tag, max)
+    abstract def searchItems(tag)
 
     def launchSearch(params){
-        params << [connectTimeout: connTimeout, readTimeout: readTimeout]
-        println(params)
         def client = new RESTClient(url)
+        params << [connectTimeout: connTimeout, readTimeout: readTimeout]
         return client.get(params)
     }
 

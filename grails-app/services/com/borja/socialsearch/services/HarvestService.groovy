@@ -7,17 +7,35 @@ class HarvestService {
 
     def grailsApplication
 
-    def gather(tag, siteKey, max) {
+    def collect(tag) {
 
-        def collector = ApiFactory.getInstance(siteKey)
+        def items = []
 
-        def items = collector.searchItems(tag, max)
+        for (site in grailsApplication.config.apis.sites) {
+            items << collect(tag, site.key)
+        }
 
         return items
 
     }
 
 
+    def collect(tag, siteKey) {
+
+        def items = []
+
+        try {
+
+            def collector = ApiFactory.getInstance(siteKey)
+
+            items = collector.searchItems(tag)
+
+        } catch (e) {
+            log.error "Error collecting tag #$tag in $siteKey: $e"
+        }
+
+        return items
+    }
 
 
 }

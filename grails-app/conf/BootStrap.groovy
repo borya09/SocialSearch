@@ -6,7 +6,6 @@ class BootStrap {
     def grailsApplication
 
     def init = { servletContext ->
-        ApiFactory.metaClass.'static'.hello = { -> return "hello"}
         ApiFactory.metaClass.'static'.getConfig = { -> grailsApplication.config}
     }
     def destroy = {

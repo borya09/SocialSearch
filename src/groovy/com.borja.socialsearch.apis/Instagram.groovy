@@ -14,14 +14,13 @@ public class Instagram extends Api{
 
 
     @Override
-    def searchItems(tag, max) {
+    def searchItems(tag) {
 
         url =  "${url[0]}/$tag/${url[1]}"
 
         def response = launchSearch(
                 query:[
                         client_id:apiKey
-
                 ]
         )
 
