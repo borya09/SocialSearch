@@ -14,16 +14,15 @@ public class Instagram extends Api{
 
 
     @Override
-    List<Item> searchItems(tag, max, config) {
+    def searchItems(tag, max) {
 
-        def client = new RESTClient(config.url)
-        def response = client.get(
+        url =  "${url[0]}/$tag/${url[1]}"
+
+        def response = launchSearch(
                 query:[
-                        client_id:config.clientId
+                        client_id:apiKey
 
-                ],
-                connectTimeout: config.connectTimeout,
-                readTimeout: config.readTimeout,
+                ]
         )
 
         def results = response.json.data?.collect{ photo->

@@ -10,22 +10,23 @@ package com.borja.socialsearch.apis
 class ApiFactory {
 
 
-    static Api getInstance(siteKey) {
+    static def getInstance(siteKey) {
 
-        def instance = null
+        def props = ApiFactory.config.sites[siteKey]
+        println props
+        def timeouts = ApiFactory.config.timeouts.apis
+        println timeouts
+        def className = props.clazz
+        def clazz = ApiFactory.class.classLoader.loadClass(className)
+        Api instance = (Api)clazz.newInstance(
+                siteKey:siteKey,
+                url:props.connection.url,
+                apiKey:props.connection.apiKey,
+                connTimeout:timeouts.connection,
+                readTimeout:timeouts.read,
+                properties:props.ownProps
 
-
-        switch (siteKey){
-            case 'INS':
-                instance = new Instagram()
-                break
-            case "FLK":
-                instance = new Instagram()
-                break
-        }
-
-        instance.setSiteKey(siteKey)
-
+        )
 
 
         return instance

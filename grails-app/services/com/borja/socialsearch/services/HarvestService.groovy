@@ -10,10 +10,15 @@ class HarvestService {
     def gather(tag, siteKey, max) {
 
         def collector = ApiFactory.getInstance(siteKey)
-        def config = [:]
-        def items = collector.searchItems(tag, max, config)
+
+        def items = collector.searchItems(tag, max)
 
         return items
 
     }
+
+
+
+
 }
+

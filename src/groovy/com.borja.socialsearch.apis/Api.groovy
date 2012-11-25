@@ -1,6 +1,7 @@
 package com.borja.socialsearch.apis
 
 import com.borja.socialsearch.domain.Item
+import wslite.rest.RESTClient
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,11 +12,23 @@ import com.borja.socialsearch.domain.Item
  */
 abstract class Api {
 
-    String siteKey
+    String siteKey,
+           siteName
+
+    def properties,
+        url,
+        apiKey
 
     int connTimeout,
-            readTimeout
+        readTimeout
 
-    abstract List<Item> searchItems(tag, max, config)
+    abstract def searchItems(tag, max)
+
+    def launchSearch(params){
+        params << [connectTimeout: connTimeout, readTimeout: readTimeout]
+        println(params)
+        def client = new RESTClient(url)
+        return client.get(params)
+    }
 
 }
