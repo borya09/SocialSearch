@@ -27,7 +27,7 @@ public class Instagram extends Api{
         def results = response.json.data?.collect{ photo->
             [
                     preview: photo.images.low_resolution.url,
-                    link: photo.images.standard_resolution.url,
+                    link: photo.link,
                     title: photo.caption.text
             ]
         }

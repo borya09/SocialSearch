@@ -13,14 +13,17 @@ public class Twitter extends Api {
     @Override
     def searchItems(tag) {
 
-        url = url + tag
+        def response = launchSearch(
+                query: [
+                        q:"%23$tag"
 
-        def response = launchSearch([])
+                ]
+        )
 
         def results = response.json.results?.collect { tweet ->
             [
-                    preview: "",
-                    link: "",
+                    preview: tweet.profile_image_url,
+                    link: "https://twitter.com/${tweet.from_user}/status/${tweet.id_str}",
                     title: tweet.text
             ]
         }

@@ -26,14 +26,14 @@ public class Flickr extends Api{
                         privacy_filter:1,
                         per_page:max,
                         page:1
-                ],
+                ]
         )
 
 
         def results = response.json.photos.photo?.collect{ photo->
             [
                     preview: "http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg",
-                    link: "http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg",
+                    link: "http://www.flickr.com/photos/${photo.owner}/${photo.id}/",
                     title: photo.title
             ]
         }
