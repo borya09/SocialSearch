@@ -15,7 +15,8 @@ abstract class Api {
     String siteKey,
            siteName
 
-    def properties,
+    def ownProps,  // Properties of the API (for all the tags)
+        tagProps, //Properties of the tag for this API
         url,
         apiKey
 

@@ -1,6 +1,5 @@
 package com.borja.socialsearch.services
 
-import com.borja.socialsearch.apis.Api
 import com.borja.socialsearch.apis.ApiFactory
 
 class HarvestService {
@@ -10,9 +9,10 @@ class HarvestService {
     def collect(tag) {
 
         def items = []
+        def config = retrieveConfig4Tag(tag)
 
         for (site in grailsApplication.config.apis.sites) {
-            items << collect(tag, site.key)
+            items += collect(tag, site.key, config)
         }
 
         return items
@@ -20,13 +20,17 @@ class HarvestService {
     }
 
 
-    def collect(tag, siteKey) {
+    def collect(tag, siteKey, config) {
 
         def items = []
 
         try {
 
-            def collector = ApiFactory.getInstance(siteKey)
+            config = config ?: retrieveConfig4Tag(tag)
+
+            def apiConfig = retrieveConfig4Site(config, siteKey)
+
+            def collector = ApiFactory.getInstance(siteKey, apiConfig)
 
             items = collector.searchItems(tag)
 
@@ -37,6 +41,20 @@ class HarvestService {
         return items
     }
 
+    def retrieveConfig4Tag(tag) {
+        def config = grailsApplication.config
+        return [apis: config.apis, tag: config.tags[tag]]
+    }
 
+    def retrieveConfig4Site(config, siteKey) {
+        def tag = [:]
+        if ("defaults" in config.tag) {
+            tag += config.tag.defaults
+        }
+        if ("siteKey" in config.tag) {
+            tag += config.tag[siteKey]
+        }
+        return [tag: tag, site: config.apis.sites[siteKey], timeouts: config.apis.timeouts, connection: config.apis.connection]
+    }
 }
 

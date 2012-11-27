@@ -6,7 +6,8 @@ class BootStrap {
     def grailsApplication
 
     def init = { servletContext ->
-        ApiFactory.metaClass.'static'.getConfig = { -> grailsApplication.config}
+        //TODO Not working after redeploy: "config: not such property ..."
+        //ApiFactory.metaClass.static.getConfig = { -> grailsApplication.config}
     }
     def destroy = {
     }

@@ -22,7 +22,7 @@ public class Flickr extends Api{
                         method:"flickr.photos.search",
                         api_key:apiKey,
                         tags:tag,
-                        woe_id:properties.woeId,
+                        woe_id:tagProps.woeId,
                         privacy_filter:1,
                         per_page:max,
                         page:1
