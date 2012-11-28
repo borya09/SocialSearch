@@ -41,12 +41,12 @@ class HarvestService {
         return items
     }
 
-    def retrieveConfig4Tag(tag) {
+    private def retrieveConfig4Tag(tag) {
         def config = grailsApplication.config
         return [apis: config.apis, tag: config.tags[tag]]
     }
 
-    def retrieveConfig4Site(config, siteKey) {
+    private def retrieveConfig4Site(config, siteKey) {
         def tag = [:]
         if ("defaults" in config.tag) {
             tag += config.tag.defaults
