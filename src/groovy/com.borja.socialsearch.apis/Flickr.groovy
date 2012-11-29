@@ -30,7 +30,7 @@ public class Flickr extends Api{
         )
 
 
-        def results = response.json.photos.photo?.collect{ photo->
+        def results = response.json.photos?.photo?.collect{ photo->
             [
                     preview: "http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg",
                     link: "http://www.flickr.com/photos/${photo.owner}/${photo.id}/",
