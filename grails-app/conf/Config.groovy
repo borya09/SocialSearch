@@ -119,7 +119,7 @@ apis {
             }
 
         }
-        px500 {
+        PX5 {
             name = "500PX"
             clazz = "com.borja.socialsearch.apis.Px500"
             connection {
