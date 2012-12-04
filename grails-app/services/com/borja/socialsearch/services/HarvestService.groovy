@@ -1,60 +1,122 @@
 package com.borja.socialsearch.services
 
 import com.borja.socialsearch.apis.ApiFactory
+import com.borja.socialsearch.domain.Tag
+import com.borja.socialsearch.domain.Site
+import com.borja.socialsearch.domain.Item
 
 class HarvestService {
 
     def grailsApplication
 
-    def collect(tag) {
 
-        def items = []
-        def config = retrieveConfig4Tag(tag)
+    def collectTag(tagKey, tagConfig) {
 
-        for (site in grailsApplication.config.apis.sites) {
-            items += collect(tag, site.key, config)
+        def tag = searchOrCreateTag(tagKey)
+
+        def site
+
+        for (siteKey in grailsApplication.config.apis.sites*.key) {
+            site = collectSite(tag, siteKey, tagConfig)
+            if (site) {
+                tag.addToSite(site)
+            }
         }
 
-        return items
+        return tag
 
     }
 
 
-    def collect(tag, siteKey, config) {
 
+
+    def collectSite(tag, siteKey, tagConfig) {
+
+        def site,
+            tagKey
+
+        try {
+
+            tagKey = tag.key
+
+            site = searchOrCreateSite(tag, siteKey)
+
+            def items = collectItems(siteKey, tagKey, tagConfig)
+
+            items.each { item ->
+                site.addToItem(item)
+            }
+
+        } catch (e) {
+            log.error "Error collecting site with tag #$tagKey in $siteKey: $e"
+        }
+
+        return site
+    }
+
+
+    def collectItems(siteKey, tagKey, tagConfig) {
         def items = []
 
         try {
 
-            config = config ?: retrieveConfig4Tag(tag)
+            def apiConfig = retrieveConfig4Site(tagConfig, siteKey)
 
-            def apiConfig = retrieveConfig4Site(config, siteKey)
+            def collector = ApiFactory.getCollectorInstance(tagKey, siteKey, apiConfig)
 
-            def collector = ApiFactory.getInstance(siteKey, apiConfig)
-
-            items = collector.searchItems(tag)
+            items = collector.searchItems(tagKey)
 
         } catch (e) {
-            log.error "Error collecting tag #$tag in $siteKey: $e"
+            log.error "Error collecting items with tag #$tagKey in $siteKey: $e"
         }
 
         return items
     }
 
-    private def retrieveConfig4Tag(tag) {
-        def config = grailsApplication.config
-        return [apis: config.apis, tag: config.tags[tag]]
+
+    private def searchOrCreateTag(tagKey) {
+        def tag = Tag.findByKey(tagKey)
+
+        if (!tag) {
+            tag = new Tag(key: tagKey)
+        }
+
+        return tag
     }
 
-    private def retrieveConfig4Site(config, siteKey) {
-        def tag = [:]
-        if ("defaults" in config.tag) {
-            tag += config.tag.defaults
+    private def searchOrCreateSite(tag, siteKey) {
+        def site = Site.findByTagAndKey(tag, siteKey)
+
+        if (!site) {
+            site = new Site(key: siteKey, tag: tag)
         }
-        if ("siteKey" in config.tag) {
-            tag += config.tag[siteKey]
+
+        return site
+    }
+
+
+    private def retrieveConfig4Site(tagConfig, siteKey) {
+
+        def apisConfig = grailsApplication.config.apis,
+            tag = [:]
+
+        if (tagConfig) {
+            def props = tagConfig[siteKey]
+            if (props) {
+                tag += props
+            }
+            props = tagConfig.defaults
+            if (props) {
+                tag += props
+            }
         }
-        return [tag: tag, site: config.apis.sites[siteKey], timeouts: config.apis.timeouts, connection: config.apis.connection]
+
+        return [
+                tag: tag,
+                site: apisConfig.sites[siteKey],
+                timeouts: apisConfig.timeouts,
+                connection: apisConfig.connection
+        ]
     }
 }
 

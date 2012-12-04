@@ -15,6 +15,7 @@ class Item {
             description,
             siteUrl  //Url of the site
 
+    static belongsTo = [ site : Site]
 
     Date dateCreated
 

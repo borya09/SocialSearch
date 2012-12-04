@@ -1,5 +1,7 @@
 package com.borja.socialsearch.apis
 
+import com.borja.socialsearch.domain.Item
+
 /**
  * Created with IntelliJ IDEA.
  * User: borja
@@ -7,37 +9,39 @@ package com.borja.socialsearch.apis
  * Time: 12:07 AM
  * To change this template use File | Settings | File Templates.
  */
-class Px500 extends Api{
+class Px500 extends Api {
 
 
     @Override
-    def searchItems(tag) {
+    List<Item> searchItems(tag) {
+
+        def items = []
 
         def response = launchSearch(
                 query: [
-                        term:tag,
-                        type:"photos",
-                        page:1,
-                        order:"date",
-                        license_type:-1,
-                        image_size:3,
-                        consumer_key:apiKey
+                        term: tag,
+                        type: "photos",
+                        page: 1,
+                        order: "date",
+                        license_type: -1,
+                        image_size: 3,
+                        consumer_key: apiKey
 
                 ]
         )
 
 
 
-        def results = response.json.photos?.collect { photo ->
-            [
-                    preview: photo.image_url,
-                    link: "http://500px.com/photo/${photo.id}",
+        response.json.photos?.each { photo ->
+            items << new Item(
+                    previewUrl: photo.image_url,
+                    imageUrl: "http://500px.com/photo/${photo.id}",
                     title: photo.name
-            ]
+            )
         }
 
 
-        return results
+        return items
     }
 
 }

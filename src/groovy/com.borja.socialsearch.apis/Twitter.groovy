@@ -1,5 +1,7 @@
 package com.borja.socialsearch.apis
 
+import com.borja.socialsearch.domain.Item
+
 /**
  * Created with IntelliJ IDEA.
  * User: borja
@@ -11,24 +13,28 @@ public class Twitter extends Api {
 
 
     @Override
-    def searchItems(tag) {
+    List<Item> searchItems(tag) {
+
+        def items = []
 
         def response = launchSearch(
                 query: [
-                        q:"%23$tag"
+                        q: "%23$tag"
 
                 ]
         )
 
-        def results = response.json.results?.collect { tweet ->
-            [
-                    preview: tweet.profile_image_url,
-                    link: "https://twitter.com/${tweet.from_user}/status/${tweet.id_str}",
+        response.json.results?.collect { tweet ->
+
+            items << new Item(
+                    previewUrl: tweet.profile_image_url,
+                    imageUrl: "https://twitter.com/${tweet.from_user}/status/${tweet.id_str}",
                     title: tweet.text
-            ]
+            )
+
         }
 
 
-        return results
+        return items
     }
 }

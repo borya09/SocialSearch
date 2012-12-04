@@ -10,8 +10,7 @@ package com.borja.socialsearch.apis
 class ApiFactory {
 
 
-    static def getInstance(siteKey, config) {
-
+    static def getCollectorInstance(tagKey, siteKey, config) {
 
 
         def siteProps = config.site
@@ -22,6 +21,7 @@ class ApiFactory {
         def className = siteProps.clazz
         def clazz = ApiFactory.class.classLoader.loadClass(className)
         Api instance = (Api)clazz.newInstance(
+                tagKey:tagKey,
                 siteKey:siteKey,
                 url:siteProps.connection.url,
                 apiKey:siteProps.connection.apiKey,
@@ -36,5 +36,7 @@ class ApiFactory {
         return instance
 
     }
+
+
 
 }

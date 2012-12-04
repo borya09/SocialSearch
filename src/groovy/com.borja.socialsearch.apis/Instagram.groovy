@@ -1,7 +1,6 @@
 package com.borja.socialsearch.apis
 
 import com.borja.socialsearch.domain.Item
-import wslite.rest.RESTClient
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,29 +9,34 @@ import wslite.rest.RESTClient
  * Time: 12:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Instagram extends Api{
+public class Instagram extends Api {
 
 
     @Override
-    def searchItems(tag) {
+    List<Item> searchItems(tag) {
 
-        url =  "${url[0]}/$tag/${url[1]}"
+        def items = []
+
+        url = "${url[0]}/$tag/${url[1]}"
 
         def response = launchSearch(
-                query:[
-                        client_id:apiKey
+                query: [
+                        client_id: apiKey
                 ]
         )
 
-        def results = response.json.data?.collect{ photo->
-            [
-                    preview: photo.images.low_resolution.url,
-                    link: photo.link,
+
+
+        response.json.data?.each { photo ->
+            items << new Item(
+                    previewUrl: photo.images.low_resolution.url,
+                    imageUrl: photo.link,
                     title: photo.caption.text
-            ]
+            )
         }
 
 
-        return results
+
+        return items
     }
 }

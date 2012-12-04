@@ -93,6 +93,11 @@ tags {
             woeId = "754542"
         }
     }
+    madrid {
+        FLI {
+            woeId = "766273"
+        }
+    }
 }
 
 apis {

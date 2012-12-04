@@ -4,9 +4,10 @@ import grails.converters.JSON
 
 class PruebaController {
 
-    def harvestService
+    def backgroundHarvestService
 
     def index() {
-        render harvestService.collect("bilbao") as JSON
+        backgroundHarvestService.collectAndSave()
+        return [ok:"true"] as JSON
     }
 }
