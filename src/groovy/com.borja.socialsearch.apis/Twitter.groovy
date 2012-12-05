@@ -23,15 +23,17 @@ public class Twitter extends Api {
 
                 ]
         )
-
-        response.json.results?.collect { tweet ->
-
-            items << new Item(
-                    previewUrl: tweet.profile_image_url,
-                    imageUrl: "https://twitter.com/${tweet.from_user}/status/${tweet.id_str}",
-                    title: tweet.text
-            )
-
+        def sid
+        response.json.results?.each { tweet ->
+            sid = tweet.id_str
+            if (isNew(sid)) {
+                items << new Item(
+                        sid: sid,
+                        previewUrl: tweet.profile_image_url,
+                        imageUrl: "https://twitter.com/${tweet.from_user}/status/${sid}",
+                        title: tweet.text
+                )
+            }
         }
 
 

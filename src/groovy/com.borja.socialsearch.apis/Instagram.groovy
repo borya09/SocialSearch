@@ -25,14 +25,17 @@ public class Instagram extends Api {
                 ]
         )
 
-
-
+        def sid
         response.json.data?.each { photo ->
-            items << new Item(
-                    previewUrl: photo.images.low_resolution.url,
-                    imageUrl: photo.link,
-                    title: photo.caption.text
-            )
+            sid = photo.id
+            if (isNew(sid)) {
+                items << new Item(
+                        sid: sid,
+                        previewUrl: photo.images.low_resolution.url,
+                        imageUrl: photo.link,
+                        title: photo.caption.text
+                )
+           }
         }
 
 

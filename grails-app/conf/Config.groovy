@@ -85,6 +85,12 @@ log4j = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
+
+    appenders {
+        console name: 'stdout'
+    }
+
+    debug stdout:'chrono'
 }
 
 tags {

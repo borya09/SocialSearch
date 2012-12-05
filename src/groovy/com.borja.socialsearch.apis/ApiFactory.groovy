@@ -1,5 +1,8 @@
 package com.borja.socialsearch.apis
 
+import org.apache.commons.logging.LogFactory
+import org.apache.log4j.Logger
+
 /**
  * Created with IntelliJ IDEA.
  * User: borja
@@ -11,7 +14,6 @@ class ApiFactory {
 
 
     static def getCollectorInstance(tagKey, siteKey, config) {
-
 
         def siteProps = config.site
         def tagProps = config.tag
@@ -37,6 +39,10 @@ class ApiFactory {
 
     }
 
+
+    static def getChrono(name){
+         return new Chrono(name: name)
+    }
 
 
 }

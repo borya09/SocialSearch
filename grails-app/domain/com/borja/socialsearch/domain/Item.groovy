@@ -23,7 +23,7 @@ class Item {
 
 
     static constraints = {
-        sid nullable: false, blank: false
+        sid nullable: false, blank: false, unique: 'site'
         title nullable: true
         imageUrl nullable: true
         previewUrl nullable: true
@@ -34,6 +34,7 @@ class Item {
 
     static mapping = {
         version false
+        sid index:true
         loc geoIndex:true, indexAttributes:[min:-500, max:500]
     }
 

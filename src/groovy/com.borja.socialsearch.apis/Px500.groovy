@@ -31,13 +31,17 @@ class Px500 extends Api {
         )
 
 
-
+        def sid
         response.json.photos?.each { photo ->
-            items << new Item(
-                    previewUrl: photo.image_url,
-                    imageUrl: "http://500px.com/photo/${photo.id}",
-                    title: photo.name
-            )
+            sid = photo.id
+            if (isNew(sid)) {
+                items << new Item(
+                        sid: sid,
+                        previewUrl: photo.image_url,
+                        imageUrl: "http://500px.com/photo/${sid}",
+                        title: photo.name
+                )
+            }
         }
 
 

@@ -35,6 +35,10 @@ abstract class Api {
         return client.get(params)
     }
 
+    def isNew(sid){
+        return !Item.findBySid(sid)
+    }
+
 
 
 }

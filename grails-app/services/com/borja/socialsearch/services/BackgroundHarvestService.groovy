@@ -1,5 +1,7 @@
 package com.borja.socialsearch.services
 
+import com.borja.socialsearch.apis.ApiFactory
+
 class BackgroundHarvestService {
 
     def harvestService
@@ -7,11 +9,17 @@ class BackgroundHarvestService {
 
     def collectAndSave() {
 
+
+        def chrono = ApiFactory.getChrono("collectAndSave")
+        chrono.init()
+
         def tags = grailsApplication.config.tags
 
         for (tag in tags) {
             processTag(tag.key, tag.value)
         }
+
+        chrono.finish()
     }
 
 

@@ -19,7 +19,7 @@ class Site {
     Date lastUpdated
 
     static constraints = {
-        key nullable: false, blank: false, size: 3..3, unique: true
+        key nullable: false, blank: false, size: 3..3, unique: 'tag'
     }
 
     static mapping = {

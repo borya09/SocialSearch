@@ -33,14 +33,19 @@ public class Flickr extends Api {
 
 
 
+        def sid
+
         response.json.photos?.photo?.each { photo ->
+            sid = photo.id
+            if (isNew(sid)){
+                items << new Item(
+                        sid: sid,
+                        previewUrl: "http://farm${photo.farm}.staticflickr.com/${photo.server}/${sid}_${photo.secret}_n.jpg",
+                        imageUrl: "http://www.flickr.com/photos/${photo.owner}/${sid}/",
+                        title: photo.title
 
-            items << new Item(
-                    previewUrl: "http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg",
-                    imageUrl: "http://www.flickr.com/photos/${photo.owner}/${photo.id}/",
-                    title: photo.title
-            )
-
+                )
+            }
         }
 
         return items
