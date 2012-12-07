@@ -23,6 +23,7 @@ public class Twitter extends Api {
 
                 ]
         )
+
         def sid
         response.json.results?.each { tweet ->
             sid = tweet.id_str

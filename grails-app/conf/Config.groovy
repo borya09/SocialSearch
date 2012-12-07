@@ -138,6 +138,14 @@ apis {
             }
 
         }
+       /* PAN {
+            name = "panoramio"
+            clazz = "com.borja.socialsearch.apis.Panoramio"
+            connection {
+                url = "http://www.panoramio.com/map/get_panoramas.php"
+            }
+
+        }*/
     }
 
     timeouts {
