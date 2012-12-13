@@ -10,8 +10,8 @@ class BackgroundHarvestService {
     def collectAndSave() {
 
 
-        def chrono = ApiFactory.getChrono("collectAndSave")
-        chrono.init()
+        def chrono = ApiFactory.getChrono("collectAndSave", true)
+        //chrono.init()
 
         def tags = grailsApplication.config.tags
 

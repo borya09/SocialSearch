@@ -4,6 +4,8 @@ import org.bson.types.ObjectId
 
 class Tag {
 
+    static jsonProperties = [short:['key','site']]
+
     Tag() {
         site = []
     }
@@ -25,5 +27,6 @@ class Tag {
     static mapping = {
         version false
     }
+
 
 }

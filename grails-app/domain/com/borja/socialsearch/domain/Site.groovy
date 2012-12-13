@@ -1,8 +1,12 @@
 package com.borja.socialsearch.domain
 
 import org.bson.types.ObjectId
+import groovy.transform.ToString
+
 
 class Site {
+
+    static jsonProperties = [short:['key','item']]
 
     Site() {
         item = []

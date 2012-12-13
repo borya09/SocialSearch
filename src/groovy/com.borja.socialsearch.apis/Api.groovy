@@ -5,13 +5,7 @@ import wslite.rest.RESTClient
 import com.borja.socialsearch.domain.Site
 import com.borja.socialsearch.domain.Tag
 
-/**
- * Created with IntelliJ IDEA.
- * User: borja
- * Date: 11/22/12
- * Time: 11:57 PM
- * To change this template use File | Settings | File Templates.
- */
+
 abstract class Api {
 
     String tagKey,

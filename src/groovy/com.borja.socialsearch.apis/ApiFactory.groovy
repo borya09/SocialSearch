@@ -3,13 +3,7 @@ package com.borja.socialsearch.apis
 import org.apache.commons.logging.LogFactory
 import org.apache.log4j.Logger
 
-/**
- * Created with IntelliJ IDEA.
- * User: borja
- * Date: 11/16/12
- * Time: 1:26 AM
- * To change this template use File | Settings | File Templates.
- */
+
 class ApiFactory {
 
 
@@ -22,16 +16,16 @@ class ApiFactory {
 
         def className = siteProps.clazz
         def clazz = ApiFactory.class.classLoader.loadClass(className)
-        Api instance = (Api)clazz.newInstance(
-                tagKey:tagKey,
-                siteKey:siteKey,
-                url:siteProps.connection.url,
-                apiKey:siteProps.connection.apiKey,
-                connTimeout:timeouts.connection,
-                readTimeout:timeouts.read,
-                ownProps:siteProps.ownProps,
-                tagProps:tagProps,
-                max:max
+        Api instance = (Api) clazz.newInstance(
+                tagKey: tagKey,
+                siteKey: siteKey,
+                url: siteProps.connection.url,
+                apiKey: siteProps.connection.apiKey,
+                connTimeout: timeouts.connection,
+                readTimeout: timeouts.read,
+                ownProps: siteProps.ownProps,
+                tagProps: tagProps,
+                max: max
         )
 
 
@@ -40,8 +34,12 @@ class ApiFactory {
     }
 
 
-    static def getChrono(name){
-         return new Chrono(name: name)
+    static def getChrono(name, init = false) {
+        def chrono = new Chrono(name: name)
+        if (init){
+            chrono.init()
+        }
+        return chrono
     }
 
 

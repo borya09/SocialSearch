@@ -3,7 +3,10 @@ package com.borja.socialsearch.domain
 import org.bson.types.ObjectId
 
 
+
 class Item {
+
+    static jsonProperties = [short:['title','imageUrl','previewUrl','description']]
 
     ObjectId id
 
@@ -19,7 +22,7 @@ class Item {
 
     Date dateCreated
 
-    List loc
+    List location
 
 
     static constraints = {
@@ -35,7 +38,7 @@ class Item {
     static mapping = {
         version false
         sid index:true
-        loc geoIndex:true, indexAttributes:[min:-500, max:500]
+        location geoIndex:true
     }
 
 

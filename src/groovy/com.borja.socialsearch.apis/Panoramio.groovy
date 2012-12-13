@@ -2,13 +2,7 @@ package com.borja.socialsearch.apis
 
 import com.borja.socialsearch.domain.Item
 
-/**
- * Created with IntelliJ IDEA.
- * User: borja
- * Date: 12/6/12
- * Time: 1:14 AM
- * To change this template use File | Settings | File Templates.
- */
+
 class Panoramio extends Api {
 
     @Override
